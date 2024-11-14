@@ -42,6 +42,7 @@ async function onScanSuccess(result) {
                     <h2>Total Unique Scans: ${scanResults.size}</h2>
                 `;
                 printResults();
+                document.dispatchEvent(new CustomEvent('scanResultsUpdated'));
             }
         }
     } catch (error) {
@@ -119,3 +120,9 @@ async function generatePDF() {
 function onScanError(err) {
     console.error(err);
 }
+
+document.addEventListener('scanResultsUpdated', () => {
+    if (scanResults.size > 0) {
+        document.getElementById('getMyBill').style.display = 'block';
+    }
+});

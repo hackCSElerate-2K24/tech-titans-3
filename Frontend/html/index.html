@@ -23,7 +23,7 @@
         <ul id="navLinks">
           <li><a href="#home">Dashboard</a></li>
           <li><a href="#features">Features</a></li>
-          <li><a href="im.html">Products</a></li>
+          <li><a href="beep.html">Bill</a></li>
           <li><a href="#how-it-works">About Us</a></li>
           <li><a href="login.html" id="loginLink">Login</a></li>
           <li id="profile" style="display: none;">
@@ -118,20 +118,17 @@
       // Check local storage for user data to hide/show login links
       const userEmail = localStorage.getItem('userEmail');
       const loginLink = document.getElementById('loginLink');
-      const btnPrimary = document.getElementById('btn-primary');
       const cta = document.getElementById('cta');
       const profileSection = document.getElementById('profile');
       console.log(userEmail)
       if (userEmail) {
         loginLink.style.display = 'none';
         profileSection.style.display = 'block';
-        btnPrimary.style.display = 'none';
         cta.style.display='none';
         document.getElementById('userEmailDisplay').textContent = `Email: ${userEmail}`;
       } else {
         loginLink.style.display = 'block';
         profileSection.style.display = 'none';
-        btnPrimary.style.display = 'block';
         cta.style.display='block';
       }
     });
@@ -145,7 +142,7 @@
   </script>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
+  <section class="hero" id="home" style="padding: 30px;">
     <div class="renu">
       <div class="hero-content">
         <h2 style="color:black; font-style: oblique;">Manage inventory and fulfill orders - the right way</h2>
@@ -159,7 +156,7 @@
   </section>
 
   <!-- Solution Overview Section -->
-  <section class="solution-overview">
+  <section class="solution-overview" style="padding: 5%;">
     <div class="container">
       <h2>Our Solution for Better Inventory Control</h2>
       <p>A cost-effective inventory management system designed to simplify stock updates and alerts, improving shop efficiency and reducing errors.</p>
@@ -167,7 +164,7 @@
   </section>
 
   <!-- Features Section -->
-  <section class="features" id="features">
+  <section class="features" id="features" style="padding: 5%;">
     <div class="container">
       <h2>Key Features</h2>
       <div class="features-grid">
@@ -213,7 +210,7 @@
   </section>
 
   <!-- Impact & Benefits Section -->
-  <section class="impact">
+  <section class="impact" style="padding: 5%;">
     <div class="container">
       <h2>Why Choose Our System?</h2>
       <ul>
