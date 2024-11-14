@@ -3,32 +3,32 @@ const productRoutes = express.Router();
 const Product = require('../Models/product_models');
 
 productRoutes.post('/stocksIn', async (req, res) => {
-   const { userEmail, products } = req.body;
-
-   // Check if products is an array
-   if (!Array.isArray(products)) {
-      return res.status(400).json({ message: "Invalid data format. 'products' should be an array." });
-   }
+    const { userEmail, products } = req.body;
+    if (!Array.isArray(products)) {
+        return res.status(400).json({ message: "Invalid data format. 'products' should be an array." });
+    }
    
-   try {
-      const productPromises = products.map(product => {
-         return Product.findOneAndUpdate(
-            { userEmail: userEmail, productId: product.productId }, 
-            { 
-               productName: product["productName "].trim(), // Trim any accidental whitespace
-               $inc: { stocksBalance: parseInt(product.stocksBalance, 10) }, // Convert stocksBalance to a number
-            },
-            { upsert: true, new: true, setDefaultsOnInsert: true } 
-         );
-      });
+    try {
+        const productPromises = products.map(product => {
 
-      await Promise.all(productPromises); 
-      res.status(200).json({ message: "Stock data updated successfully" });
-   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error updating stock data", error });
-   }
+            return Product.findOneAndUpdate(
+                { userEmail: userEmail, productId: product.productId },
+                { 
+                    productName: product.productName,
+                    $inc: { stocksBalance: parseInt(product.stocksBalance, 10) },
+                },
+                { upsert: true, new: true, setDefaultsOnInsert: true }
+            );
+        });
+
+        await Promise.all(productPromises); 
+        res.status(200).json({ message: "Stock data updated successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating stock data", error });
+    }
 });
+
 
 
 
