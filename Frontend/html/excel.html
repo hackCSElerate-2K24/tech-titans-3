@@ -96,13 +96,14 @@
         }
 
         function sendJSONToBackend(jsonData) {
+            console.log("Sending data:", jsonData); // Check structure here
             $.ajax({
-                url: 'http://localhost:3000/stocksIn', // Replace with your backend URL
+                url: 'http://localhost:3000/stocksIn',
                 type: 'POST',
-                data: JSON.stringify({ userEamil : "pavangowdats01@gmail.com","products" : jsonData }),
+                data: JSON.stringify({ userEmail: "pavangowdats01@gmail.com", products: JSON.parse(jsonData) }),
                 contentType: 'application/json',
                 success: function(response) {
-                    console.log('Success:', response);
+                    console.log('Data Updated');
                     alert('JSON data successfully sent to the server.');
                 },
                 error: function(xhr, status, error) {
@@ -111,6 +112,7 @@
                 }
             });
         }
+
     </script>
 </head>
 <body>
