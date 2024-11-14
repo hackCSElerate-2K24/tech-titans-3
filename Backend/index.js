@@ -2,15 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const app = express();
-
+const path = require('path');  
+const cors = require('cors');
 const product = require('./Routes/product_routes');
 const user = require('./Routes/user_routes');
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
+
+app.use(cors({
+    origin: "http://127.0.0.1:5500",
+    credentials: true,
+  }));
 
 app.use(express.json());
 app.use(product); 

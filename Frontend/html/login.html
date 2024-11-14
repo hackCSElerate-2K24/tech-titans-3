@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up / Sign In</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>  
+<div class="container" id="container">
+    <!-- Sign Up Form -->
+    <div class="form-container sign-up-container">
+        <form id="signUpForm">
+            <h1>Create Account</h1>
+            <input type="text" id="signUpUserName" placeholder="UserName" required />
+            <input type="email" id="signUpUserEmail" placeholder="UserEmail" required />
+            <input type="password" id="signUpPassword" placeholder="Password" required />
+            <button type="submit">Sign Up</button>
+            <p id="signUpErrorMessage" style="color:red;"></p>
+        </form>
+    </div>
+
+    <!-- Sign In Form -->
+    <div class="form-container sign-in-container">
+        <form id="signInForm">
+            <h1>Sign in</h1>
+            <input type="email" id="signInUserEmail" placeholder="UserEmail" required />
+            <input type="password" id="signInPassword" placeholder="Password" required />
+            <a href="#">Forgot your password?</a>
+            <button type="submit">Sign In</button>
+            <p id="signInErrorMessage" style="color:red;"></p>
+        </form>
+    </div>
+
+    <!-- Overlay for Sign In / Sign Up Switch -->
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signInButton">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start your journey with us</p>
+                <button class="ghost" id="signUpButton">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        Created with <i class="fa fa-heart"></i> by
+        <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+        - Read how I created this and how you can join the challenge
+        <a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+    </p>
+</footer>
+
+<script src="../js/login.js"></script>
+<script>
+    // Switch between Sign Up and Sign In
+    document.getElementById('signUpButton').addEventListener('click', () => {
+        document.getElementById('container').classList.add('right-panel-active');
+    });
+
+    document.getElementById('signInButton').addEventListener('click', () => {
+        document.getElementById('container').classList.remove('right-panel-active');
+    });
+
+    // Handle Sign Up form submission
+    document.getElementById('signUpForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const userName = document.getElementById('signUpUserName').value;
+        const userEmail = document.getElementById('signUpUserEmail').value;
+        const password = document.getElementById('signUpPassword').value;
+        const signUpErrorMessage = document.getElementById('signUpErrorMessage');
+        signUpErrorMessage.textContent = ''; 
+
+        try {
+            const response = await fetch('http://localhost:3000/signUp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "userName": userName, "userEmail": userEmail, "password": password }),
+            });
+            if (response.ok) {
+                localStorage.setItem('userEmail', userEmail);
+                window.location.href = "http://127.0.0.1:5500/Frontend/html/index.html";
+            } else {
+                const result = await response.text();
+                signUpErrorMessage.textContent = result || 'Failed to sign up. Please try again.';
+            }
+        } catch (error) {
+            signUpErrorMessage.textContent = 'An error occurred. Please try again.';
+            console.error('Sign Up error:', error);
+        }
+    });
+
+    // Handle Sign In form submission
+    document.getElementById('signInForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('signInUserEmail').value;
+        const password = document.getElementById('signInPassword').value;
+        const signInErrorMessage = document.getElementById('signInErrorMessage');
+        signInErrorMessage.textContent = ''; 
+
+        try {
+            const response = await fetch('http://localhost:3000/signIn', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "userEmail": email, "password": password }),
+            });
+            if (response.ok) {
+                localStorage.setItem('userEmail', email);
+                window.location.href = "http://127.0.0.1:5500/Frontend/html/index.html";
+            } else {
+                const result = await response.text();
+                signInErrorMessage.textContent = result || 'Failed to login. Please try again.';
+            }
+        } catch (error) {
+            signInErrorMessage.textContent = 'An error occurred. Please try again.';
+            console.error('Login error:', error);
+        }
+    });
+</script>
+</body>
+</html>

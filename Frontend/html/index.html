@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <!-- Logo -->
+      <div class="logo1">
+        <img src="../utils/logo.jpeg" alt="Logo" class="logo-image">
+        <!-- Site Name -->
+        <h1 class="logo">InvoSmart</h1>
+      </div>
+      
+      <!-- Navigation Menu -->
+      <nav>
+        <ul id="navLinks">
+          <li><a href="#home">Dashboard</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="im.html">Products</a></li>
+          <li><a href="#how-it-works">About Us</a></li>
+          <li><a href="login.html" id="loginLink">Login</a></li>
+          <li id="profile" style="display: none;">
+            <div class="profile">
+              <a class="popup-profile" style="text-decoration: none; color:black">
+                <img src="../utils/images.png" alt="User Profile" class="profile-image">
+                <i class='bx bx-caret-down'></i>
+              </a>
+            </div>
+          </li>
+        </ul>
+        
+        <!-- Profile Modal -->
+        <div id="profileModal" class="modal" style="color: black;">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>User Profile</h2>
+            <p id="userEmailDisplay">Email: </p>
+            <button onclick="clearUserEmail()" class="btn btn-success">Logout</button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <style>
+    .profile {
+      display: flex;
+      align-items: center;
+      column-gap: 0.5rem;
+      cursor: pointer;
+    }
+    .profile img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 300px;
+      text-align: center;
+      border-radius: 8px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: #000;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Profile modal functionality
+      const profile = document.querySelector('#profile');
+      const profileModal = document.querySelector('#profileModal');
+      const closeModal = document.querySelector('.close');
+
+      profile.addEventListener('click', () => {
+        profileModal.style.display = 'block';
+      });
+
+      closeModal.addEventListener('click', () => {
+        profileModal.style.display = 'none';
+      });
+
+      window.addEventListener('click', (event) => {
+        if (event.target === profileModal) {
+          profileModal.style.display = 'none';
+        }
+      });
+
+      // Check local storage for user data to hide/show login links
+      const userEmail = localStorage.getItem('userEmail');
+      const loginLink = document.getElementById('loginLink');
+      const btnPrimary = document.getElementById('btn-primary');
+      const cta = document.getElementById('cta');
+      const profileSection = document.getElementById('profile');
+      console.log(userEmail)
+      if (userEmail) {
+        loginLink.style.display = 'none';
+        profileSection.style.display = 'block';
+        btnPrimary.style.display = 'none';
+        cta.style.display='none';
+        document.getElementById('userEmailDisplay').textContent = `Email: ${userEmail}`;
+      } else {
+        loginLink.style.display = 'block';
+        profileSection.style.display = 'none';
+        btnPrimary.style.display = 'block';
+        cta.style.display='block';
+      }
+    });
+
+    function clearUserEmail() {
+      localStorage.removeItem('userEmail');
+      document.getElementById('profile').style.display = 'none';
+      document.getElementById('loginLink').style.display = 'block';
+      window.location.href = 'index.html';
+    }
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="renu">
+      <div class="hero-content">
+        <h2 style="color:black; font-style: oblique;">Manage inventory and fulfill orders - the right way</h2>
+        <p style="font-size: large; color:rgb(72, 0, 255); font-weight: bold;">Successful business relies on successful inventory management. Automate your inventory operations with less effort.</p>
+        <a href="#features" class="btn">Explore Features</a> 
+      </div>
+      <div class="img2">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWTehNfbpXySO_eUIDdLlL1fCmCes90CaPIw&s" class="image2">
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Overview Section -->
+  <section class="solution-overview">
+    <div class="container">
+      <h2>Our Solution for Better Inventory Control</h2>
+      <p>A cost-effective inventory management system designed to simplify stock updates and alerts, improving shop efficiency and reducing errors.</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2>Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Real-Time Stock Updates</h3>
+          <p>Use barcode scanning to instantly update inventory levels.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Low-Stock Alerts</h3>
+          <p>Receive automatic alerts when stock runs low.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Centralized Dashboard</h3>
+          <p>Track inventory changes with an intuitive dashboard.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Affordable Solution</h3>
+          <p>Eliminate the need for expensive hardware with webcam scanning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>1. Access the Scanner</h3>
+          <p>Enable the webcam to start scanning barcodes.</p>
+        </div>
+        <div class="step">
+          <h3>2. Scan Inventory Items</h3>
+          <p>Use the webcam to scan barcodes and update stock levels.</p>
+        </div>
+        <div class="step">
+          <h3>3. Monitor & Manage</h3>
+          <p>Track stock in real-time and receive low-stock alerts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact & Benefits Section -->
+  <section class="impact">
+    <div class="container">
+      <h2>Why Choose Our System?</h2>
+      <ul>
+        <li><strong>Reduced Errors:</strong> Minimizes manual errors with real-time updates.</li>
+        <li><strong>Increased Efficiency:</strong> Saves time on inventory checks and updates.</li>
+        <li><strong>Cost-Effective:</strong> Affordable, using existing laptop webcams.</li>
+        <li><strong>Improved Customer Satisfaction:</strong> Avoids stockouts and delays.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="cta" id="cta">
+    <div class="container">
+      <h2>Ready to Upgrade Your Inventory Management?</h2>
+      <a href="login.html" class="btn-primary">Get Started</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <h2>About Us</h2>
+      <p>We provide innovative, cost-effective solutions for small businesses, making inventory management accessible and affordable.</p>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container" id="aboutus">
+      <p>&copy; Inventory Management System. All rights reserved.</p>
+      <nav>
+        <ul>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#contact">Contact Support</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+<script>
+    let barcode=document.querySelector(".feature-card");
+    barcode.addEventListener("click",()=>{
+        window.location.href="im.html";
+    });
+  let button = document.querySelector(".btn-primary");
+button.addEventListener("click", () => {
+    window.location.href = "login.html";
+});
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</html>
