@@ -38,7 +38,7 @@ productRoutes.post('/getProduct', async (req, res) => {
        if (foundProduct) {
           res.status(200).json(foundProduct);
        } else {
-          res.status(404).json({ message: "Product not found" });
+          res.status(400).json({msg : "Product Not Founded in Your Shope"})
        }
     } catch (error) {
        console.error(error);
@@ -72,5 +72,7 @@ productRoutes.post('/stocksOut', async (req, res) => {
        res.status(500).json({ message: "Error decrementing stock data", error });
     }
  });
+
+ 
  
 module.exports = productRoutes;

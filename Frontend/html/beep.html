@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" 
+            integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer"></script>
+    <style>
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #reader {
+            width: 600px;
+        }
+        #result, #all-results {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+        #scan-count {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body data-rsssl="1">
+
+<main>
+    <button onclick="startScanning()">Start Scanning</button>
+    <div id="reader"></div>
+    <div id="result"></div>
+    <div id="all-results"></div>
+</main>
+<audio id="success-sound" src="../utils/beep.mp3" preload="auto"></audio>
+
+<script>
+    let scanResults = new Set();
+    let scanner;
+    function startScanning() {
+        scanResults.clear();
+        document.getElementById('result').innerHTML = "";
+        document.getElementById('all-results').innerHTML = "";
+        if (!scanner) {
+            scanner = new Html5QrcodeScanner('reader', {
+                qrbox: { width: 250, height: 250, },
+                fps: 20,
+            });
+        }
+        scanner.render(onScanSuccess, onScanError);
+    }
+
+    async function onScanSuccess(result) {
+    document.getElementById('success-sound').play();
+    try {
+        console.log(result);
+        const response = await fetch('http://localhost:3000/getProduct', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "userEmail": "pavangowdats01@gmail.com", "productId": "01" })
+        });
+        console.log(repsonse);
+        if (!response.status === 400) {
+            alert('Product Not Found in Your Shop');
+        }
+        const product = await response.json();
+        scanResults.add(product);
+        document.getElementById('result').innerHTML = `
+            <h2>Total Unique Scans: ${scanResults.size}</h2>
+        `;
+        printResults();
+    } catch (error) {
+        console.error('Error fetching product:', error);
+    }
+}
+
+
+    function printResults() {
+        let allResultsHtml = "<h2>All Unique Scanned Product IDs:</h2><ul>";
+        scanResults.forEach((product, index) => {
+            allResultsHtml += `<li>${index + 1}: ${product}</li>`;
+        });
+        allResultsHtml += "</ul>";
+        document.getElementById('all-results').innerHTML = allResultsHtml;
+    }
+
+    function onScanError(err) {
+        console.error(err);
+    }
+</script>
+</body>
+</html>
+
+
