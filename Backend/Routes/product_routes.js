@@ -4,15 +4,19 @@ const Product = require('../Models/product_models');
 
 productRoutes.post('/stocksIn', async (req, res) => {
    const { userEmail, products } = req.body;
+
+   // Check if products is an array
+   if (!Array.isArray(products)) {
+      return res.status(400).json({ message: "Invalid data format. 'products' should be an array." });
+   }
    
    try {
       const productPromises = products.map(product => {
          return Product.findOneAndUpdate(
             { userEmail: userEmail, productId: product.productId }, 
             { 
-               productName: product.productName,
-               $inc: { stocksBalance: product.stocksBalance }, 
-               price: product.price,
+               productName: product["productName "].trim(), // Trim any accidental whitespace
+               $inc: { stocksBalance: parseInt(product.stocksBalance, 10) }, // Convert stocksBalance to a number
             },
             { upsert: true, new: true, setDefaultsOnInsert: true } 
          );
@@ -25,6 +29,8 @@ productRoutes.post('/stocksIn', async (req, res) => {
       res.status(500).json({ message: "Error updating stock data", error });
    }
 });
+
+
 
 productRoutes.post('/getProduct', async (req, res) => {
     const { userEmail, productId } = req.body;
