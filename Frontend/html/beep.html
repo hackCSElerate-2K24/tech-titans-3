@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -154,4 +154,64 @@
     }
 </script> 
 </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js"
+        integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="../css/beep.css">
+</head>
+
+<body data-rsssl="1">
+
+    <!-- Navigation Bar -->
+    <header>
+        <div class="container">
+          <!-- Logo -->
+          <div class="logo1">
+            <img src="../utils/logo.jpeg" alt="Logo" class="logo-image">
+          
+          <!-- Site Name -->
+          <h1 class="logo">InvoSmart</h1>
+          </div>
+          
+          <!-- Navigation Menu -->
+          <nav>
+          </nav>
+        </div>
+      </header>
+
+    <!-- Main Content -->
+    <main>
+        <h1>Code Scanner</h1>
+        <p>QR Code Scanner - ScanApp<br>
+            Use ScanApp to scan QR codes or different types of Bar Codes on your web browser using the camera or images
+            on the device. Scanning is supported on PC, Mac, Android, or iOS and works 100% free! No signups are
+            required!<br>
+            Scanning is done locally on your device.</p>
+
+        <button onclick="startScanning()">Start Scanning</button>
+        <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+            <div id="reader"></div>
+            <div id="result"></div>
+            <div id="all-results"></div>
+        </div>
+
+        <button onclick="generatePDF()">Get My Bill</button>
+        <audio id="success-sound" src="../utils/beep.mp3" preload="auto"></audio>
+    </main>
+
+    <script src="../js/beep.js"></script>
+</body>
+
 </html>
