@@ -45,8 +45,6 @@ authRoutes.post('/signIn', async (req, res) => {
         if (findUser.password !== password) {
             return res.status(400).send('Password is incorrect');
         }
-
-        // Successful login
         return res.status(200).send('Login successful');
     } catch (error) {
         console.error(error);
