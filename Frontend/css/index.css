@@ -1,0 +1,468 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #FFFAF0;
+    color: #fff;
+    padding: 1em 0;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo-image {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 40%;
+}
+.logo1{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+header .logo {
+    font-size: 1.5em;
+    color: black;
+    /* padding-right: 50rem; Space between logo image and text */
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li {
+    margin-left: 1em;
+    position: relative;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+header nav ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect */
+header nav ul li:hover {
+    transform: scale(1.1); /* Slightly increase size */
+}
+
+header nav ul li a:hover {
+    color: #ea2e09d7; /* Change color on hover */
+}
+
+/* Pop-up effect on hover */
+header nav ul li::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background-color: #ea2e09d7;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+header nav ul li:hover::after {
+    transform: scaleX(1); /* Animate underline appearance */
+}
+
+
+/* Profile Icon for Sign Up/Login */
+.profile-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url('profile.png'); /* Path to your profile icon */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Hero Section */
+.hero {
+    /* background-image: url('https://wallpapercat.com/w/full/6/c/a/268883-2160x1920-desktop-hd-farm-wallpaper-image.jpg'); */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    text-align: center;
+    padding: 150px 30px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* background-image: url(""); */
+}
+
+
+.hero-content h2,
+.hero-content p {
+    color: blue;
+    opacity: 0;
+    transform: translateX(-50%);
+    animation: slide-in 1.5s forwards;
+}
+
+.hero-content h2 {
+    animation-delay: 0.5s;
+}
+
+.hero-content p {
+    animation-delay: 1.5s;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Button Styles */
+.btn, .btn-primary {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    margin: 10px;
+}
+
+.btn {
+    background-color: orangered;
+}
+
+.btn-primary {
+    background-color: green;
+}
+
+.btn:hover {
+    background-color: black;
+}
+
+.btn-primary:hover {
+    background-color: black;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero {
+        background-position: top;
+        background-attachment: scroll;
+        padding: 100px 20px;
+    }
+}
+
+/* Sections */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    /* padding: 2em 1em; */
+}
+h2 {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.solution-overview img {
+    width: 100%;
+}
+.renu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image2{
+    height: 250px;
+    width:200px;
+    border-radius: 50%;
+}
+
+/* Features Section */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1em;
+}
+
+.feature-card h3 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.feature-card h3 a:hover {
+    color: brown;
+}
+
+.feature-card, .step {
+    background: #f1f5f8;
+    padding: 1.5em;
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.feature-card:hover {
+    background-color: #8b4513;
+    color: #ffffff;
+}
+
+
+
+/* How It Works Section */
+.how-it-works {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: black;
+}
+
+.how-it-works h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.step {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 10px;
+    width: 30%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step h3 {
+    font-size: 24px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.step p {
+    color: #555;
+    font-size: 16px;
+}
+
+.step:hover {
+    background-color: yellow;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .steps {
+        flex-direction: column;
+    }
+    
+    .step {
+        width: 80%;
+        margin: 10px auto;
+    }
+}
+
+/* Call to Action Section */
+.cta {
+    text-align: center;
+    padding: 2em 1em;
+    background: #2d6a4f;
+    color: #fff;
+}
+.cta .btn-primary {
+    background: #fff;
+    color: #2d6a4f;
+    padding: 0.5em 2em;
+    border-radius: 5px;
+}
+
+/* News Section */
+.news-section {
+    background-color: #f7f7f7;
+    padding: 2em;
+    text-align: center;
+}
+
+.news-section h2 {
+    font-size: 2em;
+    margin-bottom: 1em;
+    color: #4CAF50;
+}
+
+.news-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em;
+}
+
+.news-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5em;
+    width: 300px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.news-card h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 0.5em;
+}
+
+.news-card .news-date {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 1em;
+}
+
+.news-card p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 1em;
+}
+
+.read-more {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.read-more:hover {
+    color: #388E3C;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+}
+footer nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin-top: 1em;
+}
+footer nav ul li a {
+    color: #fff;
+    margin-left: 1em;
+}
+
+
+/* About Us Section */
+.about-section {
+    background-color: black;
+    padding: 50px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-heading {
+    font-size: 2.5em;
+    color: yellow;
+    margin-bottom: 20px;
+}
+
+.about-description {
+    font-size: 1.1em;
+    color: white;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* Team section */
+.team {
+    display: flex;
+    
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.team-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.team-name {
+    font-size: 1.2em;
+    color: #333;
+    margin: 10px 0 5px;
+}
+
+.team-title {
+    font-size: 1em;
+    color: #777;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+    .team {
+        flex-direction: column;
+        align-items: center;
+    }
+}
