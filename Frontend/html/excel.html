@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill Converter</title>
+    <link  rel="stylesheet" href="../css/index.css">
     <style>
-        /* (Your existing CSS styles) */
+        /* CSS styling */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -26,7 +28,6 @@
             border-radius: 8px;
             text-align: center;
         }
-
         h2 {
             margin-bottom: 20px;
             color: #4a90e2;
@@ -74,7 +75,7 @@
                     var workbook = XLSX.read(data, { type: 'binary' });
                     workbook.SheetNames.forEach(function(sheetName) {
                         var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-                        var json_object = JSON.stringify(XL_row_object, null, 4); // Prettify JSON output
+                        var json_object = JSON.stringify(XL_row_object, null, 4);
                         console.log(JSON.parse(json_object));
                         jQuery('#xlx_json').val(json_object);
 
@@ -96,7 +97,7 @@
         }
 
         function sendJSONToBackend(jsonData) {
-            console.log("Sending data:", jsonData); // Check structure here
+            console.log("Sending data:", jsonData); 
             $.ajax({
                 url: 'http://localhost:3000/stocksIn',
                 type: 'POST',
@@ -112,10 +113,23 @@
                 }
             });
         }
-
     </script>
 </head>
 <body>
+    <header style="width: 100%;">
+        <div class="container1" style="display: flex;justify-content: space-between;align-items: center;margin:0rem 4rem;">
+            <div class="logo1">
+                <img src="../utils/logo.jpeg" alt="Logo" class="logo-image">
+                <h1 class="logo">InvoSmart</h1>
+            </div>
+            <nav>
+                <ul id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <div class="container">
         <h2>Bill Converter</h2>
         <form enctype="multipart/form-data" class="file-input">
@@ -123,6 +137,7 @@
         </form>
         <textarea class="form-control" id="xlx_json" placeholder="Converted JSON will appear here..." rows="15"></textarea>
     </div>
+    
     <script>
         document.getElementById('upload').addEventListener('change', handleFileSelect, false);
     </script>
