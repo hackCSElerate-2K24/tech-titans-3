@@ -24,7 +24,7 @@
           <li><a href="#home">Dashboard</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="beep.html">Bill</a></li>
-          <li><a href="#how-it-works">About Us</a></li>
+          <li><a href="#about">About Us</a></li>
           <li><a href="login.html" id="loginLink">Login</a></li>
           <li id="profile" style="display: none;">
             <div class="profile">
@@ -41,10 +41,12 @@
           <div class="modal-content">
             <span class="close">&times;</span>
             <h2>User Profile</h2>
+            <p id="userNameDisplay">Name: </p>
             <p id="userEmailDisplay">Email: </p>
             <button onclick="clearUserEmail()" class="btn btn-success">Logout</button>
           </div>
         </div>
+        
       </nav>
     </div>
   </header>
@@ -121,6 +123,7 @@
       const cta = document.getElementById('cta');
       const profileSection = document.getElementById('profile');
       console.log(userEmail)
+      
       if (userEmail) {
         loginLink.style.display = 'none';
         profileSection.style.display = 'block';
@@ -258,6 +261,8 @@
 
 </body>
 <script>
+
+  
     let barcode=document.querySelector(".feature-card");
     barcode.addEventListener("click",()=>{
         window.location.href="im.html";

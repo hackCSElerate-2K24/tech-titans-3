@@ -185,6 +185,9 @@ html {
 }
 
 /* Sections */
+.solution-overview{
+    background-color: wheat;
+}
 .container {
     max-width: 1200px;
     margin: auto;
@@ -210,11 +213,15 @@ h2 {
 }
 
 /* Features Section */
+.features{
+    background-color: #f7f7f7;
+}
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1em;
 }
+
 
 .feature-card h3 a {
     text-decoration: none;
@@ -226,7 +233,7 @@ h2 {
 }
 
 .feature-card, .step {
-    background: #f1f5f8;
+    background-color:aqua;
     padding: 1.5em;
     text-align: center;
     border-radius: 8px;
@@ -395,7 +402,7 @@ footer nav ul li a {
 
 /* About Us Section */
 .about-section {
-    background-color: whitesmoke;
+    background-color: palegoldenrod;
     padding: 50px 20px;
     text-align: center;
     font-family: Arial, sans-serif;
