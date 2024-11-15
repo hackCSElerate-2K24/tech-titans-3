@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="../css/index.css">
+  <style>
+    /* Set the canvas size */
+    #stockChart {
+      max-width: 700px;
+      max-height: 500px;
+      width: 100%;
+      height: auto;
+    }
+    /* Low stock container styling */
+    #lowStockContainer {
+      margin-top: 2rem;
+      padding: 1rem;
+      width: 80%;
+      max-width: 700px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #lowStockList {
+      list-style-type: none;
+      padding: 0;
+    }
+    #lowStockList li {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background-color: #ffe6e6;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div style="display:flex;justify-content: center;align-items: center; flex-direction: column;">
+    <header style="display: block; width: 100%;">
+      <div class="container">
+        <div class="logo1">
+          <img src="../utils/logo.jpeg" alt="Logo" class="logo-image">
+          <h1 class="logo">InvoSmart</h1>
+        </div>
+        <nav>
+          <ul id="navLinks">
+            <li><a href="index.html">Home</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <canvas id="stockChart" width="400" height="400" style="margin: 4rem"></canvas>
+
+    <!-- Low stock container -->
+    <div id="lowStockContainer">
+      <h3>Products with Low Stock</h3>
+      <ul id="lowStockList"></ul>
+    </div>
+  </div>
+
+  <script>
+    async function fetchProductData() {
+      const response = await fetch('http://localhost:3000/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "userEmail": "pavangowdats01@gmail.com" })
+      });
+      const data = await response.json();
+      console.log(data);
+      return data;
+    }
+
+    async function createChart() {
+      const products = await fetchProductData();
+      const labels = products.map(product => product.productName);
+      const data = products.map(product => product.stocksBalance);
+
+      const ctx = document.getElementById('stockChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Stock Balance',
+            data: data,
+            backgroundColor: 'rgba(200,110,230)',
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Display low stock products
+      displayLowStockProducts(products);
+    }
+
+    function displayLowStockProducts(products) {
+  const lowStockList = document.getElementById('lowStockList');
+  const lowStockProducts = products.filter(product => product.stocksBalance <= 10);
+
+  lowStockProducts.forEach(product => {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${product.productName}: ${product.stocksBalance} in stock`;
+    lowStockList.appendChild(listItem);
+  });
+}
+    createChart();
+  </script>
+</body>
+</html>
